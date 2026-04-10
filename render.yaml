@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: smartcrop-advisory-backend
+    env: python
+    rootDir: backend
+    # This rootDir sets the execution context, meaning commands run inside the backend folder
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: AIzaSyDhexrTzFIkbM7LaZ9bwzVByY2HybhgRSU
+        sync: false # Set this securely in the Render dashboard

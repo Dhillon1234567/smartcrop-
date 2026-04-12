@@ -62,8 +62,8 @@ async def predict_disease(file: UploadFile = File(...)):
         img = Image.open(io.BytesIO(contents))
         
         # 3. Setup Gemini Model
-        # Using 1.5-flash as it's perfectly optimized for multimodal rapid logic
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        # Using 2.5-flash as requested by the user
+        model = genai.GenerativeModel('gemini-2.5-flash')
         
         # 4. Prompt Engineering for JSON response matching Retrofit Model structure
         prompt = """

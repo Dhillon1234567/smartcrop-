@@ -28,7 +28,22 @@ if GEMINI_API_KEY:
 
 @app.get("/")
 async def root():
-    return {"status": "ok", "message": "SmartCropAdvisory Gemini API is running!"}
+    '''
+    Root endpoint for health check and verification of deployment.
+    '''
+    print("Root endpoint hit")
+    return {
+        "status": "online",
+        "message": "SmartCropAdvisory Gemini API is running successfully!",
+        "version": "1.0.1"
+    }
+
+@app.get("/health")
+async def health_check():
+    '''
+    Dedicated health check endpoint.
+    '''
+    return {"status": "healthy", "timestamp": os.getenv("RENDER_SERVICE_ID", "local")}
 
 @app.post("/predict")
 async def predict_disease(file: UploadFile = File(...)):
@@ -48,7 +63,7 @@ async def predict_disease(file: UploadFile = File(...)):
         
         # 3. Setup Gemini Model
         # Using 1.5-flash as it's perfectly optimized for multimodal rapid logic
-        model = genai.GenerativeModel('gemini-2.5-flash')
+        model = genai.GenerativeModel('gemini-1.5-flash')
         
         # 4. Prompt Engineering for JSON response matching Retrofit Model structure
         prompt = """
